@@ -35,15 +35,16 @@ export class TaskComponent implements OnDestroy {
     this.increasedTimer = moment();
 
     const timerSub = interval(1000).subscribe(() => {
-      let currentTime = moment().format('hh:mm A');
-      currentTime = this.increasedTimer.add(this.isSpeed ? 1 : 0, 'minute');
-      this.liveTime = moment(currentTime).format('hh:mm A');
+      // If fast-forward is enabled, add 1 minute every second
+      this.increasedTimer.add(this.isSpeed ? 1 : 0, 'minutes');
+      // Always add 1 second to simulate real passage of time
+      this.increasedTimer.add(1, 'seconds');
 
-      this.displayTasks = this.displayTasks.map((task: any) => ({
+      this.liveTime = this.increasedTimer.format('hh:mm A');
+
+      this.displayTasks = this.displayTasks.map((task:any) => ({
         ...task,
-        completedTask: moment(currentTime, 'hh:mm A').isSameOrAfter(
-          moment(task.time, 'hh:mm A')
-        ),
+        completedTask: moment(this.liveTime, 'hh:mm A').isSameOrAfter(moment(task.time, 'hh:mm A')),
       }));
     });
   }
