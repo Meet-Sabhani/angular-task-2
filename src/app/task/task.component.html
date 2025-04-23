@@ -1,0 +1,81 @@
+<h4>Angular Task!</h4>
+
+<div
+  style="
+    padding: 10px;
+    display: flex;
+    flex-direction: flex;
+    align-items: center;
+    justify-content: space-around;
+  "
+>
+  <div>
+    <div (click)="toggleSpeed()">
+      <h3>Live Current Time</h3>
+      <p *ngIf="isSpeed" class="note">
+        Note:Right now time have increased to 1 minute in 1 second, want to stop
+        it double click on it.
+      </p>
+      <h3 [ngClass]="isSpeed ? 'incr-time' : 'same-time'">
+        {{ liveTime }}
+      </h3>
+    </div>
+    <div
+      style="
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+      "
+    >
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 400px;
+        "
+        *ngFor="let task of displayTasks"
+      >
+        <ng-container>
+          <div>
+            <h4 [ngClass]="task?.completedTask ? 'com' : 'non-com'">
+              {{ task?.name }}
+            </h4>
+          </div>
+          <div>
+            <h4 [ngClass]="task?.completedTask ? 'com' : 'non-com'">
+              {{ task?.time }}
+            </h4>
+          </div>
+        </ng-container>
+      </div>
+      <div *ngIf="displayTasks.length === 0">
+        <ng-container>
+          <div>No Task is created. Please add remainder task</div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div style="display: flex; gap: 5px; flex-direction: column">
+      <input
+        placeholder="Add your remainder here......."
+        [(ngModel)]="taskName"
+      />
+      <input
+        placeholder="Please set remainder time"
+        type="time"
+        [(ngModel)]="taskTime"
+        name="taskTime"
+      />
+      <button
+        [disabled]="taskName === '' || taskTime === ''"
+        (click)="addTaskList()"
+      >
+        Add Remainder
+      </button>
+    </div>
+  </div>
+</div>

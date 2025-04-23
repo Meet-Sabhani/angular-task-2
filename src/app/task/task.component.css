@@ -1,0 +1,52 @@
+input {
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 400px;
+  padding: 0px 10px;
+}
+
+button {
+  background: #f1e4c3;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  height: 40px;
+}
+button:hover {
+  background: #e0d4af;
+}
+
+.com {
+  text-decoration: line-through;
+}
+
+.non-com {
+  text-decoration: none;
+}
+
+.incr-time {
+  border: 1px solid hsl(0, 0%, 80%);
+  padding: 5px;
+  border-radius: 5px;
+  width: 500px;
+  background-color: #c94747;
+  cursor: pointer;
+}
+
+.same-time {
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
+  width: 500px;
+  background-color: #cf8686;
+  cursor: pointer;
+}
+
+.note {
+  color: red;
+  font-weight: 300;
+  width: 500px;
+}
