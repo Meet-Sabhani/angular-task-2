@@ -1,81 +1,92 @@
-<h4>Angular Task!</h4>
+<h2 style="text-align: center; margin-bottom: 20px;">Angular Task!</h2>
 
 <div
   style="
-    padding: 10px;
     display: flex;
-    flex-direction: flex;
-    align-items: center;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    padding: 20px;
+    flex-wrap: wrap;
   "
 >
-  <div>
-    <div (click)="toggleSpeed()">
-      <h3>Live Current Time</h3>
+
+  <div style="display: flex; flex-direction: column; gap: 20px;">
+    <div (click)="toggleSpeed()" style="cursor: pointer;">
+      <h3 style="margin: 0;">Live Current Time</h3>
       <p *ngIf="isSpeed" class="note">
-        Note:Right now time have increased to 1 minute in 1 second, want to stop
-        it double click on it.
+        Note: Right now time is increasing by 1 minute every second. Double click to stop it.
       </p>
       <h3 [ngClass]="isSpeed ? 'incr-time' : 'same-time'">
         {{ liveTime }}
       </h3>
     </div>
+
     <div
       style="
-        padding: 10px;
+        padding: 15px;
         border: 1px solid #ccc;
         border-radius: 5px;
         display: flex;
         flex-direction: column;
+        gap: 15px;
+        width: 500px;
       "
     >
-      <div
-        style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 400px;
-        "
-        *ngFor="let task of displayTasks"
-      >
-        <ng-container>
-          <div>
-            <h4 [ngClass]="task?.completedTask ? 'com' : 'non-com'">
-              {{ task?.name }}
-            </h4>
-          </div>
-          <div>
-            <h4 [ngClass]="task?.completedTask ? 'com' : 'non-com'">
-              {{ task?.time }}
-            </h4>
-          </div>
-        </ng-container>
-      </div>
-      <div *ngIf="displayTasks.length === 0">
-        <ng-container>
-          <div>No Task is created. Please add remainder task</div>
-        </ng-container>
-      </div>
+      <h3 style="margin-top: 0;">Reminders</h3>
+      <ng-container *ngIf="displayTasks.length > 0; else noTasks">
+        <div
+          *ngFor="let task of displayTasks"
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px dashed #ccc;
+          "
+        >
+          <h4 [ngClass]="task?.completedTask ? 'com' : 'non-com'" style="margin: 0;">
+            {{ task?.name }}
+          </h4>
+          <h4 [ngClass]="task?.completedTask ? 'com' : 'non-com'" style="margin: 0;">
+            {{ task?.time }}
+          </h4>
+        </div>
+      </ng-container>
+      <ng-template #noTasks>
+        <div style="text-align: center;">No tasks created. Please add a reminder.</div>
+      </ng-template>
     </div>
   </div>
-  <div>
-    <div style="display: flex; gap: 5px; flex-direction: column">
-      <input
-        placeholder="Add your remainder here......."
-        [(ngModel)]="taskName"
-      />
-      <input
-        placeholder="Please set remainder time"
-        type="time"
-        [(ngModel)]="taskTime"
-        name="taskTime"
-      />
-      <button
-        [disabled]="taskName === '' || taskTime === ''"
-        (click)="addTaskList()"
-      >
-        Add Remainder
-      </button>
-    </div>
+
+
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 400px;
+    "
+  >
+    <h3>Add a Reminder</h3>
+    <input
+      placeholder="Reminder name..."
+      [(ngModel)]="taskName"
+    />
+    <input
+      placeholder="Reminder time"
+      type="time"
+      [(ngModel)]="taskTime"
+      name="taskTime"
+    />
+    <button
+      [disabled]="taskName === '' || taskTime === ''"
+      (click)="addTaskList()"
+    >
+      Add Reminder
+    </button>
   </div>
 </div>
